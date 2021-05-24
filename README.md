@@ -1,15 +1,14 @@
+# Need for Speed
 
-### Development mode
-```
+## Development mode
+
+```sh
 npm install
-npx shadow-cljs watch app
+npm start
 ```
-start a ClojureScript REPL
-```
-npx shadow-cljs browser-repl
-```
-### Building for production
 
-```
-npx shadow-cljs release app
+## Building for production
+
+```sh
+npm run build
 ```
