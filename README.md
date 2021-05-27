@@ -52,7 +52,51 @@ So far so good!
 
 Also [asked about Reagent template's license file](https://github.com/reagent-project/reagent-template/issues/182).
 
-### 2021-05-27: 1×🍅
+### 2021-05-27: 3×🍅
 
 Committed this readme file.
-(I have been writing and updating this during the whole time.)
+(I have been updating this every day.)
+
+Removed the license file
+by [editing the initial commit](https://stackoverflow.com/a/2309391/1079869).
+
+Set up [Twind, a Tailwind-in-JS library](https://twind.dev/).
+I first tried to install it via npm and load it in `core.cljs`:
+
+```clj
+(ns need-for-speed.core
+    (:require
+      [reagent.core :as r]
+      [reagent.dom :as d]
+      ["twind/shim"])) ;; <- Same as `import 'twind/shim'` in JS
+```
+
+But for some reason I got errors in the browser's console:
+
+```
+app.js:1551
+An error occurred when loading need_for_speed.core.js
+
+app.js:1552
+TypeError: (0 , module.pathToFileURL) is not a function
+    at Object.shadow$provide.module$node_modules$twind$shim$shim_cjs (:3000/js/cljs-runtime/module$node_modules$twind$shim$shim_cjs.js:3)
+    at Object.shadow.js.jsRequire (:3000/js/cljs-runtime/shadow.js.js:34)
+    at Object.shadow.js.require (:3000/js/cljs-runtime/shadow.js.js:59)
+    at eval (:3000/js/cljs-runtime/need_for_speed.core.js:2)
+    at eval (<anonymous>)
+    at Object.goog.globalEval (app.js:486)
+    at Object.env.evalLoad (app.js:1549)
+    at app.js:1733
+
+(index):18
+Uncaught TypeError: need_for_speed.core.init_BANG_ is not a function
+    at localhost/:18
+```
+
+So that's why I'm loading it via a CDN for now.
+
+Started implementing the UI:
+
+![First progress picture showing a very crude UI. Not beautiful!](./docs/progress-pic-1.png)
+
+Beautiful. 😂
