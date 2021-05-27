@@ -57,8 +57,9 @@ Also [asked about Reagent template's license file](https://github.com/reagent-pr
 Committed this readme file.
 (I have been updating this every day.)
 
-Removed the license file
-by [editing the initial commit](https://stackoverflow.com/a/2309391/1079869).
+Removed the Reagent template's license file
+by [editing the initial commit](https://stackoverflow.com/a/2309391/1079869)
+and added my own license file.
 
 Set up [Twind, a Tailwind-in-JS library](https://twind.dev/).
 I first tried to install it via npm and load it in `core.cljs`:
