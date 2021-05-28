@@ -16,7 +16,7 @@
 ;; Views
 
 (defn car-checkbox [{:keys [name consumption]}]
-  [:label.block {:key name}
+  [:label.block
    [:input {:type "radio" :name "car"}]
    (gstring/format "Car %s (%.1f litres/100km at 1km/h)" name consumption)])
 
@@ -31,7 +31,8 @@
    [:form
     [:fieldset
      [:legend "Choose your car"]
-     (map car-checkbox cars)]
+     (for [car cars]
+       ^{:key (:name car)} [car-checkbox car])]
     [number-input "Distance" "distance" 100]
     [number-input "Speed X" "speed-x" 60]
     [number-input "Speed Y" "speed-y" 120]]])
