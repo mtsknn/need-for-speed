@@ -106,8 +106,10 @@ Beautiful. 😂
 
 Started handling form elements' state in React/Reagent.
 
-### 2021-05-29: 🍅🍅🍅
+### 2021-05-29: 🍅🍅🍅🍅
 
 Finished handling form elements' state in React/Reagent.
 
 Created initial component for showing the calculation results.
+
+Split code into multiple files.
