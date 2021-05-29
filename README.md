@@ -21,11 +21,11 @@
 - 1×🍅 = 1 pomodoro = ~30 minutes
 - Total time spent: ?×🍅 = ~? hours
 
-### 2021-05-24: 1×🍅
+### 2021-05-24: 🍅
 
 Set up the project.
 
-### 2021-05-25: 2×🍅
+### 2021-05-25: 🍅🍅
 
 Got distracted looking for a nice Clojure IDE.
 
@@ -45,14 +45,14 @@ I think I'll try:
 - [Parinfer](https://shaunlebron.github.io/parinfer/)
   (plugin which simplifies writing and editing Lisp code like Clojure).
 
-### 2021-05-26: 2×🍅
+### 2021-05-26: 🍅🍅
 
 Finished configuring Atom for now.
 So far so good!
 
 Also [asked about Reagent template's license file](https://github.com/reagent-project/reagent-template/issues/182).
 
-### 2021-05-27: 3×🍅
+### 2021-05-27: 🍅🍅🍅
 
 Committed this readme file.
 (I have been updating this every day.)
@@ -101,3 +101,13 @@ Started implementing the UI:
 ![First progress picture showing a very crude UI. Not beautiful!](./docs/progress-pic-1.png)
 
 Beautiful. 😂
+
+### 2021-05-28: 🍅
+
+Started handling form elements' state in React/Reagent.
+
+### 2021-05-29: 🍅🍅🍅
+
+Finished handling form elements' state in React/Reagent.
+
+Created initial component for showing the calculation results.
