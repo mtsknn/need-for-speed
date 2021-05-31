@@ -1,8 +1,8 @@
 (ns need-for-speed.form
-    (:require
-      [goog.string :as gstring]
-      [need-for-speed.data :as data]
-      [reagent.core :as r]))
+  (:require
+   [goog.string :as gstring]
+   [need-for-speed.data :as data]
+   [reagent.core :as r]))
 
 ;; -------------------------
 ;; State

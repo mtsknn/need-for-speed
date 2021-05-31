@@ -1,8 +1,8 @@
 (ns need-for-speed.results
-    (:require
-      [goog.string :as gstring]
-      [need-for-speed.data :as data]
-      [need-for-speed.form :as form]))
+  (:require
+   [goog.string :as gstring]
+   [need-for-speed.data :as data]
+   [need-for-speed.form :as form]))
 
 (defn view []
   (let [base-fuel (-> (@form/state :car) data/cars :consumption)
