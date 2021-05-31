@@ -36,6 +36,7 @@ Cursive uses Paredit for "structural editing."
 I'm sure it's very handy and useful,
 but it seems too much of a hassle to set up,
 especially as I'm also using IdeaVim (Vim plugin).
+(Update: see [2021-05-30](#2021-05-30-).)
 
 I think I'll try:
 
@@ -113,3 +114,33 @@ Finished handling form elements' state in React/Reagent.
 Created initial component for showing the calculation results.
 
 Split code into multiple files.
+
+### 2021-05-30: 😴
+
+Didn't work on the project on this day.
+Sundays are for sleeping and resting
+(thus the sleeping emoji).
+
+I wrote before (see 2021-05-25)
+that I'd like to use Cursive IDE,
+but chose Atom because Atom has a Parinfer plugin,
+and Cursive only uses Paredit (built in).
+
+But I was wrong:
+[Cursive supports also Parinfer out of the box](https://mtsknn.fi/weekly-log/2021/21/#clojure-cursive-ide-supports-parinfer-out-of-the-box).
+There's just no mention of Parinfer _anywhere_ in the Cursive docs. 🤦‍♂️
+
+Anyway,
+I'm going to stick with Atom in this project.
+I might use Cursive for future projects
+because I liked it when I used it earlier.
+But I like Atom as well... 🤔
+
+### 2021-05-31: 🍅🍅
+
+Cleaned up code.
+
+Started showing diffs (e.g. "-3.12 liters" or "+0.22 hours") in results.
+Had trouble with using JavaScript's
+[`Number.toLocaleString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString).
+Gotta continue tomorrow.
