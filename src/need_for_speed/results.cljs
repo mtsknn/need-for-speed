@@ -43,12 +43,12 @@
         time-y (total-time distance speed-y)]
     [:pre.mt-4
      [:div
-      (gstring/format "Fuel per 100km at %d km/h: %s litres (%s)"
+      (gstring/format "Fuel per 100km at %d km/h: %s liters (%s)"
                       speed-x
                       (format-number fuel-x-per-100km)
                       (diff-numbers fuel-x-per-100km fuel-y-per-100km))]
      [:div
-      (gstring/format "Total fuel     at %d km/h: %s litres (%s)"
+      (gstring/format "Total fuel     at %d km/h: %s liters (%s)"
                       speed-x
                       (format-number fuel-x)
                       (diff-numbers fuel-x fuel-y))]
@@ -59,12 +59,12 @@
                       (diff-numbers time-x time-y))]
      [:hr.my-4]
      [:div
-      (gstring/format "Fuel per 100km at %d km/h: %s litres (%s)"
+      (gstring/format "Fuel per 100km at %d km/h: %s liters (%s)"
                       speed-y
                       (format-number fuel-y-per-100km)
                       (diff-numbers fuel-y-per-100km fuel-x-per-100km))]
      [:div
-      (gstring/format "Total fuel     at %d km/h: %s litres (%s)"
+      (gstring/format "Total fuel     at %d km/h: %s liters (%s)"
                       speed-y
                       (format-number fuel-y)
                       (diff-numbers fuel-y fuel-x))]

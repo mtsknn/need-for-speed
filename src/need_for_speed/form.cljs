@@ -19,7 +19,7 @@
                 :value key
                 :checked (= key (@state :car))
                 :on-change #(set-car key)}]
-       (gstring/format "Car %s (%.1f litres/100 km at 1 km/h)" (name key) consumption)])))
+       (gstring/format "Car %s (%.1f liters/100 km at 1 km/h)" (name key) consumption)])))
 
 (defn- car-checkboxes []
   [:fieldset
