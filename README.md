@@ -144,3 +144,15 @@ Started showing diffs (e.g. "-3.12 liters" or "+0.22 hours") in results.
 Had trouble with using JavaScript's
 [`Number.toLocaleString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString).
 Gotta continue tomorrow.
+
+### 2021-06-01: 🍅🍅
+
+Got number formatting working!
+Not sure what was wrong yesterday
+because today my code is quite much the same. 😅
+Anyway, here's what's working:
+
+```clj
+(.toLocaleString 1234 "en" #js {:signDisplay "exceptZero"})
+;; "+1,234"
+```
