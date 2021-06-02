@@ -27,22 +27,24 @@
    (for [car data/cars]
      ^{:key (key car)} [car-checkbox car])])
 
-(defn- number-input [label key]
-  (let [set-input-value (fn [event]
-                          (let [value (-> event .-target .-value int)]
-                            (when (< 0 value 10000) ;; TODO: Replace with validation messages?
-                              (swap! state assoc key value))))]
+(defn- number-input [label key max]
+  (let [set-value (fn [event]
+                    (let [value (-> event .-target .-value int)]
+                      (when (<= 1 value max)
+                        (swap! state assoc key value))))]
     (fn []
       [:label.block
-       [:input.border.border-gray-400 {:type "number"
-                                       :name label
-                                       :value (@state key)
-                                       :on-change #(set-input-value %)}]
+       [:input {:type "number"
+                :min 1
+                :name label
+                :class "border border-gray-400"
+                :value (@state key)
+                :on-input #(set-value %)}]
        label])))
 
 (defn view []
   [:form
    [car-checkboxes]
-   [number-input "Distance (km)" :distance]
-   [number-input "Speed X (km/h)" :speed-x]
-   [number-input "Speed Y (km/h)" :speed-y]])
+   [number-input "Distance (km)" :distance 1000000]
+   [number-input "Speed X (km/h)" :speed-x 1000]
+   [number-input "Speed Y (km/h)" :speed-y 1000]])
