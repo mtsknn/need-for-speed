@@ -16,6 +16,19 @@
 
 1. `npm run build`
 
+## Issues
+
+### Number diffs are sometimes off
+
+E.g. with distance 3500 and speeds 110 and 95:
+
+- Fuel consumptions per 100km are 7.97 and 6.96 liters.
+  The diff is shown as plus/minus 1.00 liter,
+  but it should be 0.01 liters more.
+- The times are 31 h 49 min and 36 h 51 min.
+  The diff is shown as plus/minus 5 h 1 min,
+  but it should be one minute more.
+
 ## Diary
 
 - 1×🍅 = 1 pomodoro = ~30 minutes
@@ -156,3 +169,16 @@ Anyway, here's what's working:
 (.toLocaleString 1234 "en" #js {:signDisplay "exceptZero"})
 ;; "+1,234"
 ```
+
+### 2021-06-02: 🍅🍅
+
+Improved number formatting
+and cleaned up code.
+
+Started formatting times,
+e.g. "1.67 hours" → "1 hour 40 minutes."
+
+### 2021-06-03: 🍅🍅
+
+Finished formatting times
+and cleaned up code.

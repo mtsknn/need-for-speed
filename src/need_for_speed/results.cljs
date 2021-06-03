@@ -27,6 +27,18 @@
     (fn [number]
       (.format formatter number))))
 
+(defn format-time [time]
+  (let [hours (Math/trunc time)
+        minutes (* 60 (mod time 1))
+        show-hours? (not= 0 hours)
+        show-minutes? (or (= 0 hours) (not= 0 minutes))]
+    (str (when show-hours?
+               (str (format-int hours) " h"))
+         (when (and show-hours? show-minutes?)
+               " ")
+         (when show-minutes?
+               (str (format-int minutes) " min")))))
+
 (def diff-floats
   (let [formatter (js/Intl.NumberFormat. "en" #js {:signDisplay "always"
                                                    :minimumFractionDigits 2
@@ -36,6 +48,32 @@
         (if (= 0 number)
           "±0"
           (.format formatter number))))))
+
+(defn diff-times [x y]
+  (let [number (- x y)]
+    (if (= 0 number)
+      "±0"
+      (str (if (< number 0) "-" "+") (format-time (Math/abs number))))))
+
+(defn report-fuel-per-100km [speed fuel-per-100km other-fuel-per-100km]
+  (gstring/format "Fuel/100km at %s km/h: %s liter%s (%s)"
+                  (format-int speed)
+                  (format-float fuel-per-100km)
+                  (if (= 1 fuel-per-100km) "" "s")
+                  (diff-floats fuel-per-100km other-fuel-per-100km)))
+
+(defn report-total-fuel [speed fuel other-fuel]
+  (gstring/format "Total fuel at %s km/h: %s liter%s (%s)"
+                  (format-int speed)
+                  (format-float fuel)
+                  (if (= 1 fuel) "" "s")
+                  (diff-floats fuel other-fuel)))
+
+(defn report-total-time [speed time other-time]
+  (gstring/format "Total time at %s km/h: %s (%s)"
+                  (format-int speed)
+                  (format-time time)
+                  (diff-times time other-time)))
 
 (defn view []
   (let [{:keys [car distance speed-x speed-y]} @form/state
@@ -47,35 +85,10 @@
         time-x (total-time distance speed-x)
         time-y (total-time distance speed-y)]
     [:pre.mt-4
-     [:div
-      (gstring/format "Fuel per 100km at %s km/h: %s liters (%s)"
-                      (format-int speed-x)
-                      (format-float fuel-x-per-100km)
-                      (diff-floats fuel-x-per-100km fuel-y-per-100km))]
-     [:div
-      (gstring/format "Total fuel     at %s km/h: %s liters (%s)"
-                      (format-int speed-x)
-                      (format-float fuel-x)
-                      (diff-floats fuel-x fuel-y))]
-     [:div
-      (gstring/format "Total time     at %s km/h: %s hours (%s)"
-                      (format-int speed-x)
-                      (format-float time-x)
-                      (diff-floats time-x time-y))]
+     [:div (report-fuel-per-100km speed-x fuel-x-per-100km fuel-y-per-100km)]
+     [:div (report-total-fuel speed-x fuel-x fuel-y)]
+     [:div (report-total-time speed-x time-x time-y)]
      [:hr.my-4]
-     [:div
-      (gstring/format "Fuel per 100km at %s km/h: %s liters (%s)"
-                      (format-int speed-y)
-                      (format-float fuel-y-per-100km)
-                      (diff-floats fuel-y-per-100km fuel-x-per-100km))]
-     [:div
-      (gstring/format "Total fuel     at %s km/h: %s liters (%s)"
-                      (format-int speed-y)
-                      (format-float fuel-y)
-                      (diff-floats fuel-y fuel-x))]
-     [:div
-      (gstring/format "Total time     at %s km/h: %s hours (%s)"
-                      (format-int speed-y)
-                      (format-float time-y)
-
-                      (diff-floats time-y time-x))]]))
+     [:div (report-fuel-per-100km speed-y fuel-y-per-100km fuel-x-per-100km)]
+     [:div (report-total-fuel speed-y fuel-y fuel-x)]
+     [:div (report-total-time speed-y time-y time-x)]]))
