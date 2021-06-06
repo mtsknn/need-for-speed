@@ -83,8 +83,9 @@ It took only like 5 minutes.
 
 ## Coding challenge
 
-[Solidabis (site is in Finnish)](https://www.solidabis.com/)
-is a Finnish IT firm.
+This project is my solution to
+a coding challenge published by
+[Solidabis, a Finnish IT firm (the site is in Finnish)](https://www.solidabis.com/).
 
 Here's a summary of the original instructions:
 
@@ -104,6 +105,8 @@ Here's a summary of the original instructions:
 - Usage of third party libraries and services
   that perform the comparisons
   is forbidden
+
+[Original instructions (in Finnish) on Internet Archive](https://web.archive.org/web/20210521044322if_/https://koodihaaste.solidabis.com/)
 
 ## Diary
 
