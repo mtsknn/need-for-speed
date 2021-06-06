@@ -3,9 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <script type="module" src="https://cdn.skypack.dev/twind/shim"></script>
+    <script type="module">
+      import { setup } from "https://cdn.skypack.dev/twind/shim";
+      import { withForms } from "https://cdn.skypack.dev/@twind/forms";
+
+      setup({
+        preflight: withForms(),
+        theme: {
+          fontFamily: {
+            sans: ["Inter Var", "sans-serif"],
+          },
+        },
+      });
+    </script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
   </head>
-  <body>
+  <body class="bg-gray-50">
     <div id="app">
       <h3>ClojureScript has not been compiled!</h3>
       <p>

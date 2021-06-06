@@ -16,6 +16,9 @@
 (defn total-time [distance speed]
   (/ distance speed))
 
+(defn almost-zero? [value]
+  (< -0.005 value 0.005))
+
 (def format-float
   (let [formatter (js/Intl.NumberFormat. "en" #js {:minimumFractionDigits 2
                                                    :maximumFractionDigits 2})]
@@ -30,14 +33,14 @@
 (defn format-time [time]
   (let [hours (Math/trunc time)
         minutes (* 60 (mod time 1))
-        show-hours? (not= 0 hours)
-        show-minutes? (or (= 0 hours) (not= 0 minutes))]
+        show-hours? (not (almost-zero? hours))
+        show-minutes? (or (not show-hours?) (not (almost-zero? minutes)))]
     (str (when show-hours?
-               (str (format-int hours) " h"))
+               (str (format-int hours) (gstring/unescapeEntities "&nbsp;h")))
          (when (and show-hours? show-minutes?)
                " ")
          (when show-minutes?
-               (str (format-int minutes) " min")))))
+               (str (format-int minutes) (gstring/unescapeEntities "&nbsp;min"))))))
 
 (def diff-floats
   (let [formatter (js/Intl.NumberFormat. "en" #js {:signDisplay "always"
@@ -45,35 +48,86 @@
                                                    :maximumFractionDigits 2})]
     (fn [x y]
       (let [number (- x y)]
-        (if (= 0 number)
+        (if (almost-zero? number)
           "±0"
           (.format formatter number))))))
 
 (defn diff-times [x y]
   (let [number (- x y)]
-    (if (= 0 number)
+    (if (almost-zero? number)
       "±0"
-      (str (if (< number 0) "-" "+") (format-time (Math/abs number))))))
+      (str (if (neg? number) "-" "+") (format-time (Math/abs number))))))
 
-(defn report-fuel-per-100km [speed fuel-per-100km other-fuel-per-100km]
-  (gstring/format "Fuel/100km at %s km/h: %s liter%s (%s)"
-                  (format-int speed)
-                  (format-float fuel-per-100km)
-                  (if (= 1 fuel-per-100km) "" "s")
-                  (diff-floats fuel-per-100km other-fuel-per-100km)))
+(defn arrow [direction color]
+  {:pre (some #{direction} '(:up :down))}
+  [:svg {:class ["-ml-1 mr-0.5 flex-shrink-0 self-center h-5 w-5" color]
+         :viewBox "0 0 20 20"
+         :fill "currentColor"
+         :aria-hidden "true"}
+   [:path {:d (case direction
+                :up "M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z"
+                :down "M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z")
+           :clip-rule "evenodd"
+           :fill-rule "evenodd"}]])
 
-(defn report-total-fuel [speed fuel other-fuel]
-  (gstring/format "Total fuel at %s km/h: %s liter%s (%s)"
-                  (format-int speed)
-                  (format-float fuel)
-                  (if (= 1 fuel) "" "s")
-                  (diff-floats fuel other-fuel)))
+(defn heading [speed]
+  [:h3.text-lg.leading-6.font-medium.text-gray-900.mt-8
+   (str "At " speed " km/h")])
 
-(defn report-total-time [speed time other-time]
-  (gstring/format "Total time at %s km/h: %s (%s)"
-                  (format-int speed)
-                  (format-time time)
-                  (diff-times time other-time)))
+(defn diff-badge [{:keys [value other-value formatter good?]}]
+  (let [diff (- value other-value)]
+    [:div {:class ["inline-flex items-baseline"
+                   "mt-2 px-2.5 py-0.5 rounded-full"
+                   "font-medium text-sm"
+                   "sm:justify-between"
+                   (if (almost-zero? diff)
+                     "bg-yellow-200 text-yellow-800"
+                     (if good? "bg-green-100 text-green-800" "bg-red-100 text-red-800"))]}
+     (when-not (almost-zero? diff)
+       [arrow (if (pos? diff) :up :down) (if good? "text-green-500" "text-red-500")])
+     (formatter value other-value)]))
+
+(defn dl [& children]
+  [:dl {:class ["grid(& cols-1) mt-5"
+                "bg-white shadow rounded-lg"
+                "divide(y gray-200)"
+                "md:(grid-cols-3 divide(y-0 x))"]}
+   (into [:<>] children)])
+
+(defn dt [{:keys [title value unit diff]}]
+  [:div.px-4.py-5.sm:p-6
+   [:dt.text-gray-900 title]
+   [:dd.mt-1 {:class "sm:(flex justify-between items-baseline) md:block"}
+    [:div.flex.items-baseline.text-2xl.font-semibold.text-indigo-600.md:block
+     value
+     (and unit [:span.ml-2.text-sm.font-medium.text-gray-500 unit])]
+    (and diff [diff-badge diff])]])
+
+(defn report-fuel-per-100km [value other-value]
+  [dt {:title "Fuel per 100km"
+       :value (format-float value)
+       :unit (str "liter" (when (not= 1 value) "s"))
+       :diff {:value value
+              :other-value other-value
+              :formatter diff-floats
+              :good? (< value other-value)}}])
+
+(defn report-total-fuel [value other-value]
+  [dt {:title "Total fuel"
+       :value (format-float value)
+       :unit (str "liter" (when (not= 1 value) "s"))
+       :diff {:value value
+              :other-value other-value
+              :formatter diff-floats
+              :good? (< value other-value)}}])
+
+(defn report-total-time [value other-value]
+  [dt {:title "Total time"
+       :value (format-time value)
+       :diff {:value value
+              :other-value other-value
+              :formatter diff-times
+              :good? (< value other-value)}}])
 
 (defn view []
   (let [{:keys [car distance speed-x speed-y]} @form/state
@@ -84,11 +138,14 @@
         fuel-y (total-fuel fuel-y-per-100km distance)
         time-x (total-time distance speed-x)
         time-y (total-time distance speed-y)]
-    [:pre.mt-4
-     [:div (report-fuel-per-100km speed-x fuel-x-per-100km fuel-y-per-100km)]
-     [:div (report-total-fuel speed-x fuel-x fuel-y)]
-     [:div (report-total-time speed-x time-x time-y)]
-     [:hr.my-4]
-     [:div (report-fuel-per-100km speed-y fuel-y-per-100km fuel-x-per-100km)]
-     [:div (report-total-fuel speed-y fuel-y fuel-x)]
-     [:div (report-total-time speed-y time-y time-x)]]))
+    [:div.mt-4
+     [heading speed-x]
+     [dl
+      [report-fuel-per-100km fuel-x-per-100km fuel-y-per-100km]
+      [report-total-fuel fuel-x fuel-y]
+      [report-total-time time-x time-y]]
+     [heading speed-y]
+     [dl
+      [report-fuel-per-100km fuel-y-per-100km fuel-x-per-100km]
+      [report-total-fuel fuel-y fuel-x]
+      [report-total-time time-y time-x]]]))
