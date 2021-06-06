@@ -8,7 +8,7 @@
 (defn app []
   [:div.max-w-sm.mx-auto.my-4.p-6.sm:max-w-lg.md:max-w-3xl.lg:my-8
    [:h1.font-black.mb-6.text-3xl "Need for Speed"]
-   [:p.text-lg "...or is there? Check how different speeds affect fuel consumption and driving time."]
+   [:p.text-lg "...or is there? Check how different driving speeds affect fuel consumption and travel time."]
    [:hr.my-8]
    [form/view]
    [:hr.my-8]

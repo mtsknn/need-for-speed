@@ -122,7 +122,7 @@
               :good? (< value other-value)}}])
 
 (defn report-total-time [value other-value]
-  [dt {:title "Total time"
+  [dt {:title "Travel time"
        :value (format-time value)
        :diff {:value value
               :other-value other-value
