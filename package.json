@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "shadow-cljs release app",
+    "build": "rm -rf ./public/js/ && shadow-cljs release app",
     "start": "shadow-cljs watch app"
   },
   "dependencies": {
