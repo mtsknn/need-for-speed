@@ -35,9 +35,14 @@
 
 (defn- number-input [label key max]
   (let [set-value (fn [event]
-                    (let [value (-> event .-target .-value int)]
-                      (when (<= 1 value max)
-                        (swap! state assoc key value))))]
+                    (let [value (-> event .-target .-value)
+                          number (js/parseInt value 10)]
+                      (when (or (= value "") (not (js/Number.isNaN number)))
+                        (swap! state assoc key (cond
+                                                 (= value "") 1
+                                                 (< number 1) 1
+                                                 (> number max) max
+                                                 :else number)))))]
     (fn []
       [:div
        [:label {:for key
