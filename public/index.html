@@ -4,19 +4,6 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>Need for Speed</title>
-    <script type="module">
-      import { setup } from "https://cdn.skypack.dev/twind/shim";
-      import { withForms } from "https://cdn.skypack.dev/@twind/forms";
-
-      setup({
-        preflight: withForms(),
-        theme: {
-          fontFamily: {
-            sans: ["Inter Var", "sans-serif"],
-          },
-        },
-      });
-    </script>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
   </head>
   <body class="bg-gray-50">
@@ -29,7 +16,20 @@
     </div>
     <script src="/js/app.js"></script>
     <script>
-      need_for_speed.core.init_BANG_();
+      need_for_speed.core.init_BANG_()
+    </script>
+    <script type="module">
+      import { setup } from 'https://cdn.skypack.dev/twind/shim'
+      import { withForms } from 'https://cdn.skypack.dev/@twind/forms'
+
+      setup({
+        preflight: withForms(),
+        theme: {
+          fontFamily: {
+            sans: ['Inter Var', 'sans-serif'],
+          },
+        },
+      })
     </script>
   </body>
 </html>
