@@ -10,7 +10,7 @@
            :speed-x 90
            :speed-y 110}))
 
-(defn- car-checkbox [[key {:keys [:consumption]}]]
+(defn- car-checkbox [[key {:keys [consumption]}]]
   (let [id (str "car-" (name key))
         set-car #(swap! state assoc :car %)]
     (fn []
