@@ -108,7 +108,7 @@ Here's a summary of the original instructions:
 ## Diary
 
 - 1×🍅 = 1 pomodoro = ~30 minutes
-- Total time spent: 32×🍅 = ~16 hours
+- Total time spent: 33×🍅 = ~16.5 hours
 
 ### 2021-05-24: 🍅
 
@@ -270,7 +270,7 @@ Busy day so didn't work on the project.
 Continued styling the UI...
 lol why did I spend so much time on this?
 
-### 2021-06-06: 🍅🍅🍅🍅
+### 2021-06-06: 🍅🍅🍅🍅🍅
 
 Final day!
 
@@ -303,6 +303,13 @@ So I replaced `gstring/format` with `str`.
 I'd really like to do at least some unit tests
 but I ran out of time. 🙈
 Maybe I'll do them afterwards.
+**Edit**:
+I spent 1×🍅 trying to create tests,
+but received the following error when running the initial tests in Atom:
+
+> TypeError: "cljs.test is undefined"
+
+All right, no tests then. ¯\\(ツ)/¯ 😀
 
 ## Issues
 
