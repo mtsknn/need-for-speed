@@ -1,6 +1,5 @@
 (ns need-for-speed.form
   (:require
-   [goog.string :as gstring]
    [need-for-speed.data :as data]
    [reagent.core :as r]))
 
@@ -24,7 +23,7 @@
                 :class "h-4 w-4 text-indigo-600 border-gray-300 focus:(ring(indigo-500 offset-2))"}]
        [:label {:class "ml-3 block text(sm gray-700)"
                 :for id}
-        (gstring/format "Car %s (%.1f liters/100 km at 1 km/h)" (name key) consumption)]])))
+        (str "Car " (name key) " (" (.toFixed consumption 1) " liters/100 km at 1 km/h)")]])))
 
 (defn- car-checkboxes []
   [:fieldset.mt-6
