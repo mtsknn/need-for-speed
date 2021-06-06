@@ -1,14 +1,71 @@
 # Need for Speed
 
+> ...or is there?
+> Check how different driving speeds affect fuel consumption and travel time.
+
+My first ClojureScript project.
+Also my solution to
+[Solidabis's 2021 coding challenge](#coding-challenge).
+
+[👉 Run the app](https://need-for-speed.netlify.app/)
+
+---
+
+- [Tech stack](#tech-stack)
+- [Development mode](#development-mode)
+- [Building for production](#building-for-production)
+- [Coding challenge](#coding-challenge)
+- [Diary](#diary)
+- [Issues](#issues)
+
+---
+
+## Tech stack
+
+- [ClojureScript: a Clojure compiler that targets JavaScript](https://clojurescript.org/)
+- [Reagent: a React wrapper for ClojureScript](https://reagent-project.github.io/)
+- [reagent-frontend-template](https://github.com/reagent-project/reagent-frontend-template)
+  for generating the project structure
+- [Twind: a "Tailwind-in-JS" library](https://twind.dev/)
+  for styling
+- [Tailwind UI: official Tailwind CSS components](https://tailwindui.com/)
+
+I did the development on Windows
+using the [Atom editor](https://atom.io/).
+See [Diary entry on 2021-05-25](#2021-05-25-) for details.
+
+The app is very simple
+but took quite a long time
+(see the [Diary section](#diary))
+because this was my first ClojureScript project.
+There are still many things that I'd like to improve.
+Maybe I'll revisit this project after a while
+so I can take a look using fresh eyes.
+
+I really like Reagent.
+It makes UI building and state management very easy and simple.
+It reminds me of [Mithril.js](https://mithril.js.org/)
+which I also like very much.
+React seems quite convoluted in comparison.
+
+I look forward to using
+[re-frame for more complex state management](https://github.com/Day8/re-frame)
+in the future.
+
 ## Development mode
+
+If you haven't used ClojureScript before,
+see [ClojureScript's Quick Start guide](https://clojurescript.org/guides/quick-start)
+and install the required dependencies.
 
 1. `npm install`
 2. `npm start`
 3. Open <http://localhost:3000/>
-4. In Atom,
-   press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>
-   and select "Chlorine: Connect Socket Repl"
-   and "Chlorine: Connect Embedded"
+4. Optional:
+   - In Atom,
+     press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>
+     and select "Chlorine: Connect Socket Repl"
+     and "Chlorine: Connect Embedded"
    - Now you can evaluate code in Atom e.g. with
      [Chlorine's example keybindings](https://github.com/mauricioszabo/atom-chlorine/blob/master/README.md#keybindings)
 
@@ -16,23 +73,42 @@
 
 1. `npm run build`
 
-## Issues
+The ClojureScript code is compiled to JavaScript
+and outputted to the `public/js/` directory.
+Then you can deploy the whole `public/` directory.
 
-### Number diffs are sometimes off
+I have deployed the app on Netlify:
+[need-for-speed.netlify.app](https://need-for-speed.netlify.app/).
+It took only like 5 minutes.
 
-E.g. with distance 3500 and speeds 110 and 95:
+## Coding challenge
 
-- Fuel consumptions per 100km are 7.97 and 6.96 liters.
-  The diff is shown as plus/minus 1.00 liter,
-  but it should be 0.01 liters more.
-- The times are 31 h 49 min and 36 h 51 min.
-  The diff is shown as plus/minus 5 h 1 min,
-  but it should be one minute more.
+[Solidabis (site is in Finnish)](https://www.solidabis.com/)
+is a Finnish IT firm.
+
+Here's a summary of the original instructions:
+
+- The user can input a distance
+- The user can input two speeds
+- The user can choose between three cars
+  with the following fuel consumptions at 1 km/h:
+  - Car A: 3 liters / 100km
+  - Car B: 3.5 liters / 100km
+  - Car C: 4 liters / 100km
+- As speed increases by 1 km/h,
+  fuel consumption is multiplied by 1.009
+- The app shows the travel time and fuel consumption for both speeds
+  and also the differences between the values
+- Tech stack can be chosen freely
+- Back-end is optional
+- Usage of third party libraries and services
+  that perform the comparisons
+  is forbidden
 
 ## Diary
 
 - 1×🍅 = 1 pomodoro = ~30 minutes
-- Total time spent: ?×🍅 = ~? hours
+- Total time spent: 32×🍅 = ~16 hours
 
 ### 2021-05-24: 🍅
 
@@ -178,7 +254,73 @@ and cleaned up code.
 Started formatting times,
 e.g. "1.67 hours" → "1 hour 40 minutes."
 
-### 2021-06-03: 🍅🍅
+### 2021-06-03: 🍅🍅🍅
 
 Finished formatting times
 and cleaned up code.
+
+Started styling the UI.
+
+### 2021-06-04: 😴
+
+Busy day so didn't work on the project.
+
+### 2021-06-05: 🍅🍅🍅🍅🍅🍅
+
+Continued styling the UI...
+lol why did I spend so much time on this?
+
+### 2021-06-06: 🍅🍅🍅🍅
+
+Final day!
+
+- Finished UI styling.
+- Improved input handling.
+- Wrote more stuff to this readme file.
+- Published the app on Netlify.
+
+Then I noticed that the production builds don't work. 😅
+This code:
+
+```clj
+(ns need-for-speed.form
+  (:require
+   [goog.string :as gstring]))
+
+;; Definition of `key` and `consumption` not shown here
+(gstring/format "Car %s (%.1f liters/100 km at 1 km/h)" (name key) consumption)]])))
+```
+
+...caused these errors in the console:
+
+> Uncaught TypeError: ka.format is not a function
+
+...and `ka.format` referred to `gstring/format`.
+
+No idea why and there was no time to investigate. 🤔
+So I replaced `gstring/format` with `str`.
+
+I'd really like to do at least some unit tests
+but I ran out of time. 🙈
+Maybe I'll do them afterwards.
+
+## Issues
+
+### Number diffs are sometimes off
+
+E.g. with distance 3500 and speeds 110 and 95:
+
+- Fuel consumptions per 100km are 7.97 and 6.96 liters.
+  The diff is shown as plus/minus 1.00 liter,
+  but it should be 0.01 liters more.
+- The times are 31 h 49 min and 36 h 51 min.
+  The diff is shown as plus/minus 5 h 1 min,
+  but it should be one minute more.
+
+The fix might be as simple as
+storing and handling
+the fuel amounts as centiliters
+and the times as minutes.
+Before showing them in the UI,
+the centiliters could be divided by 100
+and the minutes by 60.
