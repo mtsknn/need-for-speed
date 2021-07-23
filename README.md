@@ -4,10 +4,32 @@
 > Check how different driving speeds affect fuel consumption and travel time.
 
 My first ClojureScript project.
-Also my solution to
+Also my entry to
 [Solidabis's 2021 coding challenge](#coding-challenge).
 
 [👉 Run the app](https://need-for-speed.netlify.app/)
+
+---
+
+**Update:**
+my entry won the coding challenge! 🏆🥳
+
+I was a bit surprised
+since my app is very basic.
+On the other hand,
+the coding challenge instructions were also very basic.
+Maybe ClojureScript was so exotic a choice
+that it netted me extra points in the contest.
+
+I got a 300&euro; gift card to [Verkkokauppa.com](https://www.verkkokauppa.com/),
+a Finnish online store selling geeky stuff
+(but many other kinds of stuff as well).
+Hmm,
+I spent ~16.5 hours on the project,
+so the effective net hourly rate became ~18&euro;.
+Not bad for a fun little side project.
+
+[Read about the coding challenge entries on Solidabis's blog (in Finnish) &rarr;](https://www.solidabis.com/ajankohtaista/koodihaasteen-2021-voittajat/)
 
 ---
 
@@ -54,10 +76,9 @@ in the future.
 
 ## Development mode
 
-If you haven't used ClojureScript before,
-see [ClojureScript's Quick Start guide](https://clojurescript.org/guides/quick-start)
-and install the required dependencies.
-
+0. If you haven't used ClojureScript before,
+   see [ClojureScript's Quick Start guide](https://clojurescript.org/guides/quick-start)
+   and install the required dependencies
 1. `npm install`
 2. `npm start`
 3. Open <http://localhost:3000/>
@@ -106,7 +127,7 @@ Here's a summary of the original instructions:
   that perform the comparisons
   is forbidden
 
-[Original instructions (in Finnish) on Internet Archive](https://web.archive.org/web/20210521044322if_/https://koodihaaste.solidabis.com/)
+[Original instructions (in Finnish) on Internet Archive &rarr;](https://web.archive.org/web/20210521044322if_/https://koodihaaste.solidabis.com/)
 
 ## Diary
 
@@ -318,7 +339,7 @@ All right, no tests then. ¯\\(ツ)/¯ 😀
 
 ### Number diffs are sometimes off
 
-E.g. with distance 3500 and speeds 110 and 95:
+E.g. with distance 3,500 and speeds 110 and 95:
 
 - Fuel consumptions per 100km are 7.97 and 6.96 liters.
   The diff is shown as plus/minus 1.00 liter,
