@@ -143,8 +143,7 @@ Set up the project.
 Got distracted looking for a nice Clojure IDE.
 
 Previously I have used [Cursive IDE](https://cursive-ide.com/)
-when doing
-[Clojure exercises on Exercism](https://mtsknn.fi/weekly-log/2021/11/#clojure-exercises-on-exercism).
+when doing Clojure exercises on [Exercism](https://exercism.org/).
 Cursive uses Paredit for "structural editing."
 I'm sure it's very handy and useful,
 but it seems too much of a hassle to set up,
