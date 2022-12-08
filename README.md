@@ -239,7 +239,7 @@ but chose Atom because Atom has a Parinfer plugin,
 and Cursive only uses Paredit (built in).
 
 But I was wrong:
-[Cursive supports also Parinfer out of the box](https://mtsknn.fi/weekly-log/2021/21/#clojure-cursive-ide-supports-parinfer-out-of-the-box).
+[Cursive supports also Parinfer out of the box](https://mtsknn.fi/blog/cursive-parinfer/).
 There's just no mention of Parinfer _anywhere_ in the Cursive docs. 🤦‍♂️
 
 Anyway,
